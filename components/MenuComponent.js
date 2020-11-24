@@ -1,33 +1,42 @@
-import React  from 'react';
-import { FlatList, Image, StyleSheet} from 'react-native';
-import { ListItem } from 'react-native-elements';
+import React from 'react';
+import { FlatList, Text } from 'react-native';
+import { ListItem, Avatar } from 'react-native-elements';
 
-export default function Menu(props) {
-
-    const styles = StyleSheet.create({
-        tinyLogo: {
-          width: 50,
-          height: 50,
-        },
-      });
+function Menu(props) {
 
     const renderMenuItem = ({item, index}) => {
+
         return (
-            <ListItem >
-                <Image style={styles.tinyLogo} source={require('./images/uthappizza.png')}/>
-                <ListItem.Content>
-                    <ListItem.Title>{item.name}</ListItem.Title>
-                    <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-                </ListItem.Content>
+            <ListItem
+            key={index}
+            onPress={() => props.onPress(item.id)}
+            hideChevron={true}
+            >
+            <Avatar
+                size="small"
+                source={require('./images/uthappizza.png')}
+                rounded
+            />
+            <ListItem.Content>
+                <ListItem.Title>
+                <Text>{item.name}</Text>
+                </ListItem.Title>
+                <ListItem.Subtitle>
+                <Text>{item.description}</Text>
+                </ListItem.Subtitle>
+            </ListItem.Content>
             </ListItem>
         );
-    }
-    
-    return(
-        <FlatList
-            data={props.dishes}
-            renderItem={renderMenuItem}
-            keyExtractor={item => item.id.toString()} 
-            />
+    };
+
+    return (
+            <FlatList 
+                data={props.dishes}
+                renderItem={renderMenuItem}
+                keyExtractor={item => item.id.toString()}
+                />
     );
-} 
+}
+
+
+export default Menu;
