@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { View, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import Menu from './MenuComponent';
 import DishDetail from './DishDetailComponent';
 import Home from './HomeComponent';
+import Contact from './ContactComponent';
+import About from './AboutComponent';
 
-const MenuNavigator = createStackNavigator();
+const StackNavigator = createStackNavigator();
 
 function MenuNavigatorScreen() {
     return(
-        <MenuNavigator.Navigator
+        <StackNavigator.Navigator
             initialRouteName='Menu'
             screenOptions={{
                 headerStyle: {
@@ -23,24 +24,22 @@ function MenuNavigatorScreen() {
                 }
             }}
         >
-            <MenuNavigator.Screen
+            <StackNavigator.Screen
                 name="Menu"
                 component={Menu}
             />
-            <MenuNavigator.Screen
+            <StackNavigator.Screen
                 name="DishDetail"
                 component={DishDetail}
                 options={{ headerTitle: "Dish Detail"}}
             />          
-        </MenuNavigator.Navigator>
+        </StackNavigator.Navigator>
     );
 }
 
-const HomeNavigator = createStackNavigator();
-
 function HomeNavigatorScreen() {
     return(
-        <HomeNavigator.Navigator
+        <StackNavigator.Navigator
             screenOptions={{
                 headerStyle: {
                     backgroundColor: "#512DA8"
@@ -51,12 +50,56 @@ function HomeNavigatorScreen() {
                 }
             }}
         >
-            <HomeNavigator.Screen
+            <StackNavigator.Screen
                 name="Home"
                 component={Home}
             />
 
-        </HomeNavigator.Navigator>
+        </StackNavigator.Navigator>
+    );
+}
+
+function AboutNavigatorScreen() {
+    return(
+        <StackNavigator.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#512DA8"
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                    color: "#fff"            
+                }
+            }}
+        >
+            <StackNavigator.Screen
+                name="About"
+                component={About}
+            />
+
+        </StackNavigator.Navigator>
+    );
+}
+
+function ContactNavigatorScreen() {
+    return(
+        <StackNavigator.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#512DA8"
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                    color: "#fff"            
+                }
+            }}
+        >
+            <StackNavigator.Screen
+                name="Contact"
+                component={Contact}
+            />
+
+        </StackNavigator.Navigator>
     );
 }
 
@@ -77,9 +120,19 @@ function MainNavigatorScreen() {
                 options={{ title: 'Home',drawerLabel:'Home'  }}
             />
             <Drawer.Screen
+                name="About Us"
+                component={AboutNavigatorScreen}
+                options={{ title: 'About Us',drawerLabel:'About Us'  }}
+            />
+            <Drawer.Screen
                 name="Menu"
                 component={MenuNavigatorScreen}
                 options={{ title: 'Menu', drawerLabel:'Menu' }}
+            />
+            <Drawer.Screen
+                name="Contact Us"
+                component={ContactNavigatorScreen}
+                options={{ title: 'Contact Us', drawerLabel:'Contact Us' }}
             />
 
         </Drawer.Navigator>
