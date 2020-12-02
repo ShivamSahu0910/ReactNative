@@ -5,6 +5,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "start": "expo start",
+    "eject": "expo eject",
     "test": "jest"
   },
   "dependencies": {

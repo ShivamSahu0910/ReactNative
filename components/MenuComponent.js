@@ -20,9 +20,9 @@ class Menu extends Component {
 
             return (
                 <ListItem
-                key={index}
-                onPress={() => navigate('DishDetail', {dishId: item.id})}
-                hideChevron={true}
+                    key={index}
+                    onPress={() => navigate('DishDetail', {dishId: item.id})}
+                    hideChevron={true}
                 >
                 <Avatar
                     size="small"
