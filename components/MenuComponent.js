@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { FlatList, Text } from 'react-native';
-import { ListItem, Avatar } from 'react-native-elements';
-import { DISHES } from '../shared/dishes';
+import { FlatList } from 'react-native';
+import { Tile } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+    return{
+        dishes: state.dishes
+    }
+}
 
 class Menu extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state={
-            dishes:DISHES
-        }
-    }
 
     render() {
 
@@ -19,31 +19,20 @@ class Menu extends Component {
         const renderMenuItem = ({item, index}) => {
 
             return (
-                <ListItem
+                <Tile
                     key={index}
+                    title={item.name}
+                    caption={item.description}
+                    featured
                     onPress={() => navigate('DishDetail', {dishId: item.id})}
-                    hideChevron={true}
-                >
-                <Avatar
-                    size="small"
-                    source={require('./images/uthappizza.png')}
-                    rounded
+                    imageSrc={{ uri: baseUrl + item.image }}
                 />
-                <ListItem.Content>
-                    <ListItem.Title>
-                    <Text>{item.name}</Text>
-                    </ListItem.Title>
-                    <ListItem.Subtitle>
-                    <Text>{item.description}</Text>
-                    </ListItem.Subtitle>
-                </ListItem.Content>
-                </ListItem>
             );
         }        
 
         return (
             <FlatList 
-                data={this.state.dishes}
+                data={this.props.dishes.dishes}
                 renderItem={renderMenuItem}
                 keyExtractor={item => item.id.toString()}
                 />
@@ -52,4 +41,4 @@ class Menu extends Component {
 }
 
 
-export default Menu;
+export default connect(mapStateToProps)(Menu);
