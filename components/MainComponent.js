@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import Menu from './MenuComponent';
 import DishDetail from './DishDetailComponent';
+import Reservation from './ReservationComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
@@ -108,8 +109,8 @@ function AboutNavigatorScreen({ navigation }) {
             }}
         >
             <StackNavigator.Screen
-                name="About"
-                component={About}
+                name="Reservation"
+                component={Reservation}
             />
 
         </StackNavigator.Navigator>
@@ -135,6 +136,31 @@ function ContactNavigatorScreen({ navigation }) {
             <StackNavigator.Screen
                 name="Contact"
                 component={Contact}
+            />
+
+        </StackNavigator.Navigator>
+    );
+}
+
+function ReservationNavigatorScreen({ navigation }) {
+    return(
+        <StackNavigator.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#512DA8"
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                    color: "#fff"            
+                },
+                headerLeft:() => ( <Icon name="menu" size={24} 
+                        color= 'white'
+                        onPress={ () => navigation.toggleDrawer() } />)
+            }}
+        >
+            <StackNavigator.Screen
+                name="Resevation"
+                component={Reservation}
             />
 
         </StackNavigator.Navigator>
@@ -220,7 +246,19 @@ function MainNavigatorScreen() {
                   )
                 }}
             />
-
+            <Drawer.Screen
+                name="Reserve Table"
+                component={ReservationNavigatorScreen}
+                options={{ headerTitle: 'Reserve table', drawerLabel:'Reserve Table',
+                drawerIcon: () => (
+                    <Icon
+                    name='cutlery'
+                    type='font-awesome'            
+                    size={24}
+                    />
+                  )
+                }}
+            />
         </Drawer.Navigator>
     );
 }
