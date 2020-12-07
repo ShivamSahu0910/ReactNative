@@ -109,8 +109,8 @@ function AboutNavigatorScreen({ navigation }) {
             }}
         >
             <StackNavigator.Screen
-                name="Reservation"
-                component={Reservation}
+                name="About Us"
+                component={About}
             />
 
         </StackNavigator.Navigator>
@@ -134,7 +134,7 @@ function ContactNavigatorScreen({ navigation }) {
             }}
         >
             <StackNavigator.Screen
-                name="Contact"
+                name="Contact Us"
                 component={Contact}
             />
 
@@ -210,7 +210,7 @@ function MainNavigatorScreen() {
             <Drawer.Screen
                 name="About Us"
                 component={AboutNavigatorScreen}
-                options={{ headerTitle: 'About', drawerLabel:'About',
+                options={{ headerTitle: 'About Us', drawerLabel:'About Us',
                 drawerIcon: () => (
                     <Icon
                     name='info-circle'
@@ -236,7 +236,7 @@ function MainNavigatorScreen() {
             <Drawer.Screen
                 name="Contact Us"
                 component={ContactNavigatorScreen}
-                options={{ headerTitle: 'Contact', drawerLabel:'Contact',
+                options={{ headerTitle: 'Contact Us', drawerLabel:'Contact Us',
                 drawerIcon: () => (
                     <Icon
                     name='address-card'
