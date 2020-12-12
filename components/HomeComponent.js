@@ -34,8 +34,8 @@ function RenderItem(props) {
         if (item != null) {
             return(
                 <Card>
-                    <Card.FeaturedTitle>{item.name}</Card.FeaturedTitle>
-                    <Card.FeaturedSubtitle>{item.designation}</Card.FeaturedSubtitle>
+                    <Card.FeaturedTitle style={{color:'black'}}>{item.name}</Card.FeaturedTitle>
+                    <Card.FeaturedSubtitle style={{color:'black'}}>{item.designation}</Card.FeaturedSubtitle>
                     <Card.Image source={{ uri: baseUrl + item.image }} />
                     <Text style={{margin: 10}}>
                         {item.description}

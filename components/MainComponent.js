@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Image, SafeAreaView, StyleSheet, Text, View, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
+import Constants from 'expo-constants';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import Menu from './MenuComponent';
 import DishDetail from './DishDetailComponent';
 import Reservation from './ReservationComponent';
@@ -274,7 +275,7 @@ class Main extends Component {
   render() {
  
     return (
-        <View style={{ flex: 1, paddingTop: Platform.OS === "ios" ? 0 : Expo.Constants.statusBarHeight }}>
+        <View style={{ flex: 1, paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight }}>
             <NavigationContainer>
                 <MainNavigatorScreen/>
             </NavigationContainer>
