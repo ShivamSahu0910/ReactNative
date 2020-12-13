@@ -7,6 +7,7 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '
 import Menu from './MenuComponent';
 import DishDetail from './DishDetailComponent';
 import Reservation from './ReservationComponent';
+import Favorites from './FavoriteComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
@@ -168,6 +169,31 @@ function ReservationNavigatorScreen({ navigation }) {
     );
 }
 
+function FavoritesNavigatorScreen({ navigation }) {
+    return(
+        <StackNavigator.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#512DA8"
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                    color: "#fff"            
+                },
+                headerLeft:() => ( <Icon name="menu" size={24} 
+                        color= 'white'
+                        onPress={ () => navigation.toggleDrawer() } />)
+            }}
+        >
+            <StackNavigator.Screen
+                name="My Favorites"
+                component={Favorites}
+            />
+
+        </StackNavigator.Navigator>
+    );
+}
+
 const CustomDrawerContentComponent = (props) => (
     <DrawerContentScrollView {...props}>
         <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
@@ -241,6 +267,19 @@ function MainNavigatorScreen() {
                 drawerIcon: () => (
                     <Icon
                     name='address-card'
+                    type='font-awesome'            
+                    size={24}
+                    />
+                  )
+                }}
+            />
+            <Drawer.Screen
+                name="My Favorites"
+                component={FavoritesNavigatorScreen}
+                options={{ headerTitle: 'My Favorites', drawerLabel:'My Favorites',
+                drawerIcon: () => (
+                    <Icon
+                    name='heart'
                     type='font-awesome'            
                     size={24}
                     />
