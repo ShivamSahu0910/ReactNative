@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList, View, Text, TouchableOpacity, Animated, Alert } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
@@ -56,25 +57,27 @@ class Favorites extends Component {
             }
             return (
                 <Swipeable renderRightActions={rightButton}>
-                    <ListItem
-                        key={index}
-                        hideChevron={true}
-                        onPress={()=> navigate('DishDetail', {dishId: item.id})}
-                    >
-                    <Avatar
-                        size="small"
-                        source={{ uri: baseUrl + item.image }}
-                        rounded
-                    />
-                    <ListItem.Content>
-                        <ListItem.Title>
-                        <Text>{item.name}</Text>
-                        </ListItem.Title>
-                        <ListItem.Subtitle>
-                        <Text>{item.description}</Text>
-                        </ListItem.Subtitle>
-                    </ListItem.Content>
-                    </ListItem>
+                    <Animatable.View animation="fadeInRightBig" duration={2000}>
+                        <ListItem
+                            key={index}
+                            hideChevron={true}
+                            onPress={()=> navigate('DishDetail', {dishId: item.id})}
+                        >
+                        <Avatar
+                            size="small"
+                            source={{ uri: baseUrl + item.image }}
+                            rounded
+                        />
+                        <ListItem.Content>
+                            <ListItem.Title>
+                            <Text>{item.name}</Text>
+                            </ListItem.Title>
+                            <ListItem.Subtitle>
+                            <Text>{item.description}</Text>
+                            </ListItem.Subtitle>
+                        </ListItem.Content>
+                        </ListItem>
+                    </Animatable.View>
                 </Swipeable>
             );
         };
