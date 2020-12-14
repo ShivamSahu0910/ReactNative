@@ -53,7 +53,8 @@ function MenuNavigatorScreen({ navigation }) {
                 name="Menu"
                 component={Menu}
                 options={{ headerTitle: "Menu",
-                headerLeft:() => ( <Icon name="menu" size={24} 
+                headerLeft:() => ( <Icon name="menu" size={24}
+                        iconStyle={{marginLeft: 10}} 
                         color= 'white'
                         onPress={ () => navigation.toggleDrawer() } />)
 
@@ -80,7 +81,8 @@ function HomeNavigatorScreen({ navigation }) {
                 headerTitleStyle: {
                     color: "#fff"            
                 },
-                headerLeft:() => ( <Icon name="menu" size={24} 
+                headerLeft:() => ( <Icon name="menu" size={24}
+                        iconStyle={{marginLeft: 10}} 
                         color= 'white'
                         onPress={ () => navigation.toggleDrawer() } />)
             }}
@@ -105,7 +107,8 @@ function AboutNavigatorScreen({ navigation }) {
                 headerTitleStyle: {
                     color: "#fff"            
                 },
-                headerLeft:() => ( <Icon name="menu" size={24} 
+                headerLeft:() => ( <Icon name="menu" size={24}
+                        iconStyle={{marginLeft: 10}} 
                         color= 'white'
                         onPress={ () => navigation.toggleDrawer() } />)
             }}
@@ -130,7 +133,8 @@ function ContactNavigatorScreen({ navigation }) {
                 headerTitleStyle: {
                     color: "#fff"            
                 },
-                headerLeft:() => ( <Icon name="menu" size={24} 
+                headerLeft:() => ( <Icon name="menu" size={24}
+                        iconStyle={{marginLeft: 10}} 
                         color= 'white'
                         onPress={ () => navigation.toggleDrawer() } />)
             }}
@@ -156,6 +160,7 @@ function ReservationNavigatorScreen({ navigation }) {
                     color: "#fff"            
                 },
                 headerLeft:() => ( <Icon name="menu" size={24} 
+                        iconStyle={{marginLeft: 10}}
                         color= 'white'
                         onPress={ () => navigation.toggleDrawer() } />)
             }}
@@ -180,7 +185,8 @@ function FavoritesNavigatorScreen({ navigation }) {
                 headerTitleStyle: {
                     color: "#fff"            
                 },
-                headerLeft:() => ( <Icon name="menu" size={24} 
+                headerLeft:() => ( <Icon name="menu" size={24}
+                        iconStyle={{marginLeft: 10}} 
                         color= 'white'
                         onPress={ () => navigation.toggleDrawer() } />)
             }}

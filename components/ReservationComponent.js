@@ -3,7 +3,6 @@ import { Text, View, ScrollView, StyleSheet, Switch, Button, TouchableOpacity, M
 import { Icon } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
-
 import Moment from 'moment';
 
 class Reservation extends Component {
