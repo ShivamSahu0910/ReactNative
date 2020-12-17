@@ -5,6 +5,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import Moment from 'moment';
 import * as Animatable from 'react-native-animatable';
+import * as Permissions from 'expo-permissions';
+import {Notifications} from 'expo';//•	import * as Notifications from 'expo-notification' is latest but still not working thus using this.
 
 class Reservation extends Component {
 
@@ -26,8 +28,12 @@ class Reservation extends Component {
             'Your Reservation OK?',
             'Number of Guests: ' + this.state.guests + '\nSmoking? '+ this.state.smoking +'\nDate and Time:' + this.state.date,
             [
-            {text: 'Cancel', onPress: () => { console.log('Cancel Pressed'); this.resetForm();}, style: 'cancel'},
-            {text: 'OK', onPress: () => { this.resetForm(); }},
+                {text: 'Cancel', onPress: () => { console.log('Cancel Pressed'); this.resetForm();}, style: 'cancel'},
+                {text: 'OK', onPress: () => { 
+                    this.presentLocalNotification(this.state.date);
+                    this.resetForm(); 
+                    }
+                },
             ],
             { cancelable: false }
         );
@@ -42,11 +48,40 @@ class Reservation extends Component {
             mode: 'date',
         });
     }
+
+    async obtainNotificationPermission() {
+        let permission = await Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS);
+        if (permission.status !== 'granted') {
+            permission = await Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS);
+            if (permission.status !== 'granted') {
+                Alert.alert('Permission not granted to show notifications');
+            }
+        }
+        return permission;
+    }
+
+    async presentLocalNotification(date) {
+        await this.obtainNotificationPermission();
+        Notifications.presentLocalNotificationAsync({
+            title: 'Your Reservation',
+            body: 'Reservation for '+ date + ' requested',
+            ios: {
+                sound: true
+            },
+            android: {
+                sound: true,
+                vibrate: true,
+                color: '#512DA8'
+            }
+        });
+    }
+
+
     
     render() {
         return(
             <ScrollView>
-                <Animatable.View animation="zoomIn" duration={1000} >
+                <Animatable.View animation="zoomIn" duration={2000} >
                     <View style={styles.formRow}>
                     <Text style={styles.formLabel}>Number of Guests</Text>
                     <Picker
