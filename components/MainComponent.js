@@ -10,6 +10,7 @@ import Reservation from './ReservationComponent';
 import Favorites from './FavoriteComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
+import Login from './LoginComponent';
 import About from './AboutComponent';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -57,8 +58,6 @@ function MenuNavigatorScreen({ navigation }) {
                         iconStyle={{marginLeft: 10}} 
                         color= 'white'
                         onPress={ () => navigation.toggleDrawer() } />)
-
-
             }}
             />
             <StackNavigator.Screen
@@ -91,7 +90,6 @@ function HomeNavigatorScreen({ navigation }) {
                 name="Home"
                 component={Home}
             />
-
         </StackNavigator.Navigator>
     );
 }
@@ -117,7 +115,6 @@ function AboutNavigatorScreen({ navigation }) {
                 name="About Us"
                 component={About}
             />
-
         </StackNavigator.Navigator>
     );
 }
@@ -143,7 +140,6 @@ function ContactNavigatorScreen({ navigation }) {
                 name="Contact Us"
                 component={Contact}
             />
-
         </StackNavigator.Navigator>
     );
 }
@@ -169,7 +165,6 @@ function ReservationNavigatorScreen({ navigation }) {
                 name="Resevation"
                 component={Reservation}
             />
-
         </StackNavigator.Navigator>
     );
 }
@@ -195,7 +190,31 @@ function FavoritesNavigatorScreen({ navigation }) {
                 name="My Favorites"
                 component={Favorites}
             />
+        </StackNavigator.Navigator>
+    );
+}
 
+function LoginNavigatorScreen({ navigation }) {
+    return(
+        <StackNavigator.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#512DA8"
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                    color: "#fff"            
+                },
+                headerLeft:() => ( <Icon name="menu" size={24}
+                        iconStyle={{marginLeft: 10}} 
+                        color= 'white'
+                        onPress={ () => navigation.toggleDrawer() } />)
+            }}
+        >
+            <StackNavigator.Screen
+                name="Login"
+                component={Login}
+            />
         </StackNavigator.Navigator>
     );
 }
@@ -227,6 +246,19 @@ function MainNavigatorScreen() {
             initialRouteName="Home"
             drawerContent={ props => <CustomDrawerContentComponent {...props} /> }
         >
+            <Drawer.Screen
+                name="Login"
+                component={LoginNavigatorScreen}
+                options={{ headerTitle: 'Login', drawerLabel:'Login',
+                drawerIcon: () => (
+                    <Icon
+                    name='sign-in'
+                    type='font-awesome'            
+                    size={24}
+                    />
+                  ) 
+                }}
+            />
             <Drawer.Screen
                 name="Home"
                 component={HomeNavigatorScreen}
