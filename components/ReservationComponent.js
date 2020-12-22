@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Switch, Button, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Switch, Button, TouchableOpacity, Alert, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import Moment from 'moment';
 import * as Animatable from 'react-native-animatable';
 import * as Permissions from 'expo-permissions';
+import * as Calendar from 'expo-calendar';
 import {Notifications} from 'expo';//•	import * as Notifications from 'expo-notification' is latest but still not working thus using this.
 
 class Reservation extends Component {
@@ -23,7 +24,6 @@ class Reservation extends Component {
     }
 
     handleReservation() {
-        console.log(JSON.stringify(this.state));
         Alert.alert(
             'Your Reservation OK?',
             'Number of Guests: ' + this.state.guests + '\nSmoking? '+ this.state.smoking +'\nDate and Time:' + this.state.date,
@@ -31,6 +31,8 @@ class Reservation extends Component {
                 {text: 'Cancel', onPress: () => { console.log('Cancel Pressed'); this.resetForm();}, style: 'cancel'},
                 {text: 'OK', onPress: () => { 
                     this.presentLocalNotification(this.state.date);
+                    //this.getDefaultCalendarSource();
+                    this.addReservationToCalendar(this.state.date);
                     this.resetForm(); 
                     }
                 },
@@ -58,6 +60,50 @@ class Reservation extends Component {
             }
         }
         return permission;
+    }
+
+    obtainCalendarPermission = async () => {
+        let permission = await Permissions.getAsync(Permissions.CALENDAR);
+        if (permission.status !== 'granted') {
+            permission = await Permissions.askAsync(Permissions.CALENDAR);
+            if (permission.status !== 'granted') {
+                Alert.alert('Permission not granted to show notifications');
+            }
+        }
+        return permission;
+    }
+
+    getDefaultCalendarSource = async () => {
+        let calendar = null;
+    if (Platform.OS === 'ios') {
+      // ios: get default calendar
+      calendar = await Calendar.getDefaultCalendarAsync();
+    } else {
+      // Android: find calendar with `allowsModifications` == true
+      const calendars = await Calendar.getCalendarsAsync();
+      calendar = (calendars) ?
+        (calendars.find(cal => cal.allowsModifications) || calendars[0])
+        : null;
+    }
+    return (calendar) ? calendar.id : null;
+    }
+
+    addReservationToCalendar = async ( date ) => {
+        await this.obtainCalendarPermission();
+
+        const tempDate = Date.parse(date)
+        const startDate = new Date(tempDate)
+        const endDate = new Date(tempDate + 2 * 60 * 60 * 1000)
+
+        const calendarID = await this.getDefaultCalendarSource();
+
+        await Calendar.createEventAsync(calendarID, {
+            title: 'Con Fusion Table Reservation',
+            startDate: startDate,
+            endDate: endDate,
+            timeZone: 'Asia/Hong_Kong',
+            location: '121, Clear Water Bay Road, Clear Water Bay, Kowloon, Hong Kong'
+        })
     }
 
     async presentLocalNotification(date) {

@@ -190,6 +190,23 @@ class RegisterTab extends Component {
         }
     }
 
+    getImageFromGallery = async () => {
+        const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
+        const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+        if (cameraPermission.status === 'granted' && cameraRollPermission.status === 'granted') {
+            let capturedImage = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1
+            });
+            if (!capturedImage.cancelled) {
+                this.processImage( capturedImage.uri );
+            }
+        }
+    }
+
     processImage = async (imageUri) => {
         let processedImage = await ImageManipulator.manipulateAsync(
             imageUri, 
@@ -222,6 +239,10 @@ class RegisterTab extends Component {
                             title="Camera"
                             onPress={this.getImageFromCamera}
                             />
+                        <Button
+                            title="Gallery"
+                            onPress={this.getImageFromGallery}
+                            />    
                     </View>
                     <Input
                         placeholder="Username"
@@ -240,7 +261,7 @@ class RegisterTab extends Component {
                     <Input
                         placeholder="First Name"
                         leftIcon={{ type: 'font-awesome', name: 'user-o' }}
-                        onChangeText={(lastname) => this.setState({firstname})}
+                        onChangeText={(firstname) => this.setState({firstname})}
                         value={this.state.firstname}
                         inputContainerStyle={styles.formInput}
                         />
@@ -295,7 +316,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-around',
         alignItems:'center',
         margin: 20
     },
